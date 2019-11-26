@@ -147,7 +147,7 @@
   CEC_SUPPORT="yes"
 
 # build and install CEC framework support (yes / no)
-  CEC_FRAMEWORK_SUPPORT="no"
+  CEC_FRAMEWORK_SUPPORT="yes"
 
 # build and install iSCSI support - iscsistart (yes / no)
   ISCSI_SUPPORT="yes"
