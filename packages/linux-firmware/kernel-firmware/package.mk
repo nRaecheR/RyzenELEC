@@ -2,6 +2,7 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="kernel-firmware"
+
 PKG_VERSION="e8a0f4c9314754d8b2cbe9840357d88a861c438a"
 PKG_SHA256="6bced6083f8beb72da3ece606a59d23243296fd872d9812f0fbd305fdf38c771"
 PKG_LICENSE="other"
