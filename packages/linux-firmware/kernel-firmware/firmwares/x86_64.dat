@@ -7,7 +7,5 @@ rt2661.bin
 rt2860.bin
 rt3290.bin
 ar3k/*.dfu
-intel/dsp_fw_{bxtn,cnl,glk,kbl,release}.bin
-intel/fw_sst_*.bin*
-intel/ibt-*.{ddc,sfi,bseq}
-intel/IntcSST2.bin
+amdgpu/picasso*
+amd-ucode/microcode_amd_fam17h.bin
