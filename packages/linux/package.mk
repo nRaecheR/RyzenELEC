@@ -6,9 +6,8 @@ PKG_NAME="linux"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.kernel.org"
 PKG_DEPENDS_HOST="ccache:host rsync:host openssl:host"
-PKG_DEPENDS_TARGET="toolchain linux:host cpio:host kmod:host xz:host wireless-regdb keyutils $KERNEL_EXTRA_DEPENDS_TARGET"
-PKG_DEPENDS_INIT="toolchain"
-PKG_NEED_UNPACK="$LINUX_DEPENDS $(get_pkg_directory busybox)"
+PKG_DEPENDS_TARGET="toolchain linux:host cpio:host kmod:host xz:host wireless-regdb keyutils initramfs:init $KERNEL_EXTRA_DEPENDS_TARGET"
+PKG_NEED_UNPACK="$LINUX_DEPENDS $(get_pkg_directory initramfs) $(get_pkg_variable initramfs PKG_NEED_UNPACK)"
 PKG_LONGDESC="This package contains a precompiled kernel image and the modules."
 PKG_IS_KERNEL_PKG="yes"
 PKG_STAMP="$KERNEL_TARGET $KERNEL_MAKE_EXTRACMD"
@@ -23,22 +22,15 @@ case "$LINUX" in
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     PKG_PATCH_DIRS="amlogic"
     ;;
-  rockchip-4.4)
-    PKG_VERSION="aa8bacf821e5c8ae6dd8cae8d64011c741659945"
-    PKG_SHA256="a2760fe89a15aa7be142fd25fb08ebd357c5d855c41f1612cf47c6e89de39bb3"
-    PKG_URL="https://github.com/rockchip-linux/kernel/archive/$PKG_VERSION.tar.gz"
-    PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
-    PKG_BUILD_PERF="no"
-    ;;
   raspberrypi)
-    PKG_VERSION="d09e02c0ed86330168714b027c1669a80728d699" # 5.4.0
-    PKG_SHA256="fae85fb4e995e190900b6719fb013568295e9154628847120983beb1fd8491b0"
+    PKG_VERSION="75bb71002333cf134baeddffd0b6108049cd67f7" # 5.4.7
+    PKG_SHA256="97f399bb27c3c1c0082c26c9911ba61d6735033123a728fec666015a406d1612"
     PKG_URL="https://github.com/raspberrypi/linux/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     ;;
   *)
-    PKG_VERSION="5.4.4"
-    PKG_SHA256="3fa2aad785f8031246b25362d7542dac46aaaa91546fb41b6419fb759e43e6c2"
+    PKG_VERSION="5.4.7"
+    PKG_SHA256="abc9b21d9146d95853dac35f4c4489a0199aff53ee6eee4b0563d1b37079fcc9"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v5.x/$PKG_NAME-$PKG_VERSION.tar.xz"
     PKG_PATCH_DIRS="default"
     ;;
@@ -132,6 +124,7 @@ makeinstall_host() {
 pre_make_target() {
   ( cd $ROOT
     rm -rf $BUILD/initramfs
+    rm -f ${STAMPS_INSTALL}/initramfs/install_target ${STAMPS_INSTALL}/*/install_init
     $SCRIPTS/install initramfs
   )
   pkg_lock_status "ACTIVE" "linux:target" "build"
@@ -232,6 +225,9 @@ make_target() {
 }
 
 makeinstall_target() {
+  mkdir -p $INSTALL/.image
+  cp -p arch/${TARGET_KERNEL_ARCH}/boot/${KERNEL_TARGET} System.map $INSTALL/.image/
+
   kernel_make INSTALL_MOD_PATH=$INSTALL/$(get_kernel_overlay_dir) modules_install
   rm -f $INSTALL/$(get_kernel_overlay_dir)/lib/modules/*/build
   rm -f $INSTALL/$(get_kernel_overlay_dir)/lib/modules/*/source
@@ -257,9 +253,7 @@ makeinstall_target() {
     done
     cp -p arch/$TARGET_KERNEL_ARCH/boot/dts/overlays/README $INSTALL/usr/share/bootloader/overlays
   fi
-}
 
-post_install() {
   mkdir -p $INSTALL/$(get_full_firmware_dir)/
 
   # regdb and signature is now loaded as firmware by 4.15+

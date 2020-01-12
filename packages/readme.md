@@ -127,6 +127,7 @@ Set the variable `PKG_BUILD_FLAGS` in the `package.mk` to enable/disable the sin
 | gold     | enabled by `GOLD_SUPPORT` | target, init | do not use GOLD-Llinker (can only disable) |
 | parallel | enabled  | all | `make` or `ninja` builds with multiple threads/processes (or not) |
 | strip    | enabled  | target | strips executables (or not) |
+| sysroot  | enabled  | target | installs the package to the sysroot folder (or not) |
 
 ###### Example
 ```
@@ -269,7 +270,7 @@ Issue | Level | Meaning |
     * when it extend an existing package, add it there to the `PKG_DEPENDS_TARGET`/`PKG_DEPENDS_HOST` etc.
     * take a look into the path `packages/virtual`, there you should find a virtual packages, that match your new package (misc-packages should be the last option)
 5. Now you can build your image
-    * after the build, inside the `build-*` folder you should find a directory with your package name and -version, eg. `widget-1.2.3`.
+    * after the build, inside the `BUILD_DIR` (normally build.*) folder you should find a directory with your package name and -version, eg. `widget-1.2.3`.
 
 ## Example
 ```

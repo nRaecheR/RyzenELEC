@@ -1,10 +1,10 @@
 # build directorys
 /build.*/
+/builds
 /.fakeroot.*
 
 # automatically downloaded source files
 /sources/
-/.stamps/
 
 # prebuild target binarys to provide
 /target/
