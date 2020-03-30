@@ -23,14 +23,14 @@ case "$LINUX" in
     PKG_PATCH_DIRS="amlogic"
     ;;
   raspberrypi)
-    PKG_VERSION="6c5efcf09c40d37f72692fdbdf6d461abede20f1" # 5.4.22
-    PKG_SHA256="46c3c8486f0e224c110649a6e8181740328cc4f6fb0578e35dd355eedec71c6d"
+    PKG_VERSION="67d4589da4940159e2ded20e4bf5fa90b370b4c3" # 5.4.28
+    PKG_SHA256="7ece38b077d609adf0c5e0504469ccfaa4c0309e702d7a637674748d8185cf7f"
     PKG_URL="https://github.com/raspberrypi/linux/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     ;;
   *)
-    PKG_VERSION="5.5.10"
-    PKG_SHA256="e31d8e35d7d9766fa912b8cebcfaaa8fc6dd07413a467641d264fd13cf20fc23"
+    PKG_VERSION="5.5.13"
+    PKG_SHA256="1f3b3614a06bffc9c621c82f98d8ca88c60538a8c6dd77f96f2e7fee310a4ee2"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v5.x/$PKG_NAME-$PKG_VERSION.tar.xz"
     PKG_PATCH_DIRS="default"
     ;;
