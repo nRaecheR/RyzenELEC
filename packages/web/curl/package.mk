@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="curl"
-PKG_VERSION="7.69.1"
-PKG_SHA256="03c7d5e6697f7b7e40ada1b2256e565a555657398e6c1fcfa4cb251ccd819d4f"
+PKG_VERSION="7.71.1"
+PKG_SHA256="40f83eda27cdbeb25cd4da48cefb639af1b9395d6026d2da1825bf059239658c"
 PKG_LICENSE="MIT"
 PKG_SITE="http://curl.haxx.se"
 PKG_URL="http://curl.haxx.se/download/$PKG_NAME-$PKG_VERSION.tar.xz"
@@ -35,6 +35,7 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_lib_rtmp_RTMP_Init=yes \
                            --disable-smb \
                            --disable-smtp \
                            --disable-gopher \
+                           --disable-mqtt \
                            --disable-manual \
                            --enable-libgcc \
                            --enable-ipv6 \

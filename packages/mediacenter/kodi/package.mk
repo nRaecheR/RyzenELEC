@@ -19,16 +19,12 @@ case $KODI_VENDOR in
     PKG_SOURCE_NAME="kodi-$KODI_VENDOR-$PKG_VERSION.tar.gz"
     ;;
   *)
-    PKG_VERSION="06d904b5aab0ede4a777ac644051fc52fd74dc61"
-    PKG_SHA256="51634aadfbe2e7ce5c5295673336f9be1f351dee320275bd39661aa01dfb13d1"
+    PKG_VERSION="db74480506b32d0e8df429882d5bab8b9172db69"
+    PKG_SHA256="c06563bef2ca53c80d62a9302938482ebdc29b4ee453253516e65df925039cc8"
     PKG_URL="https://github.com/xbmc/xbmc/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="kodi-$PKG_VERSION.tar.gz"
     ;;
 esac
-
-if [ "$KODIPLAYER_DRIVER" = bcm2835-driver -a "$KODI_VENDOR" = "default" ]; then
-  PKG_PATCH_DIRS+=" rpi-hevc"
-fi
 
 configure_package() {
   # Single threaded LTO is very slow so rely on Kodi for parallel LTO support
@@ -197,9 +193,7 @@ configure_package() {
 
   if [ ! "$KODIPLAYER_DRIVER" = default ]; then
     PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $KODIPLAYER_DRIVER libinput libxkbcommon"
-    if [ "$KODIPLAYER_DRIVER" = bcm2835-driver ]; then
-      KODI_PLAYER="-DCORE_PLATFORM_NAME=rbpi"
-    elif [ "$OPENGLES_SUPPORT" = yes -a "$KODIPLAYER_DRIVER" = "$OPENGLES" ]; then
+    if [ "$OPENGLES_SUPPORT" = yes -a "$KODIPLAYER_DRIVER" = "$OPENGLES" ]; then
       KODI_PLAYER="-DCORE_PLATFORM_NAME=gbm -DGBM_RENDER_SYSTEM=gles"
       CFLAGS="$CFLAGS -DEGL_NO_X11"
       CXXFLAGS="$CXXFLAGS -DEGL_NO_X11"
