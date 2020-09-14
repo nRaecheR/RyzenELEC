@@ -5,7 +5,7 @@ diff --git a/xbmc/GUIInfoManager.cpp b/xbmc/GUIInfoManager.cpp
 index 1d112c4dd218..eaff4ee12d3f 100644
 --- a/xbmc/GUIInfoManager.cpp
 +++ b/xbmc/GUIInfoManager.cpp
-@@ -1710,7 +1710,6 @@ const infomap system_labels[] = {{"hasnetwork", SYSTEM_ETHERNET_LINK_ACTIVE},
+@@ -1702,7 +1702,6 @@ const infomap system_labels[] = {{"hasnetwork", SYSTEM_ETHERNET_LINK_ACTIVE},
                                   {"currentcontrol", SYSTEM_CURRENT_CONTROL},
                                   {"currentcontrolid", SYSTEM_CURRENT_CONTROL_ID},
                                   {"dvdlabel", SYSTEM_DVD_LABEL},
@@ -17,7 +17,7 @@ diff --git a/xbmc/utils/SystemInfo.cpp b/xbmc/utils/SystemInfo.cpp
 index 5b1d89ed2011..4a39f1122bca 100644
 --- a/xbmc/utils/SystemInfo.cpp
 +++ b/xbmc/utils/SystemInfo.cpp
-@@ -250,7 +250,6 @@ bool CSysInfoJob::DoWork()
+@@ -271,7 +271,6 @@ bool CSysInfoJob::DoWork()
  {
    m_info.systemUptime      = GetSystemUpTime(false);
    m_info.systemTotalUptime = GetSystemUpTime(true);
@@ -25,7 +25,7 @@ index 5b1d89ed2011..4a39f1122bca 100644
    m_info.videoEncoder      = GetVideoEncoder();
    m_info.cpuFrequency =
        StringUtils::Format("%4.0f MHz", CServiceBroker::GetCPUInfo()->GetCPUFrequency());
-@@ -948,9 +948,7 @@ int CSysInfo::GetXbmcBitness(void)
+@@ -1000,9 +999,7 @@ int CSysInfo::GetXbmcBitness(void)
  
  bool CSysInfo::HasInternet()
  {
