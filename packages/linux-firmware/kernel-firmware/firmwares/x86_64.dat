@@ -12,3 +12,4 @@ ar3k/*.dfu
 amdgpu/picasso*
 amdgpu/raven*
 amd-ucode/microcode_amd_fam17h.bin
+amd/*
