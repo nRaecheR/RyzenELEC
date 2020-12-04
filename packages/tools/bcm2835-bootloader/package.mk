@@ -3,8 +3,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="bcm2835-bootloader"
-PKG_VERSION="94c59c450ecfe9fb050e8ee11c35ef2f12de7f20"
-PKG_SHA256="ca123d4a699e5924928f73575b224a3c0cdcb915ad33013084ca385c1633d55c"
+PKG_VERSION="e15ef4e4fe8be99cd816cec901d977224a1eb07e"
+PKG_SHA256="1535b26a467c648e711eeb69d5c299e215b279ee1f2b05854cb67b0232b781ba"
 PKG_ARCH="arm"
 PKG_LICENSE="nonfree"
 PKG_SITE="http://www.broadcom.com"
@@ -25,9 +25,9 @@ makeinstall_target() {
       cp -PRv start_x.elf $INSTALL/usr/share/bootloader/start.elf
     fi
 
-    find_file_path bootloader/update.sh && cp -PRv $FOUND_PATH $INSTALL/usr/share/bootloader
+    find_file_path bootloader/update.sh $PKG_DIR/files/update.sh && cp -PRv $FOUND_PATH $INSTALL/usr/share/bootloader
     find_file_path bootloader/canupdate.sh && cp -PRv $FOUND_PATH $INSTALL/usr/share/bootloader
 
-    find_file_path config/distroconfig.txt $PKG_DIR/files/3rdparty/bootloader/distroconfig.txt && cp -PRv ${FOUND_PATH} $INSTALL/usr/share/bootloader
-    find_file_path config/config.txt $PKG_DIR/files/3rdparty/bootloader/config.txt && cp -PRv ${FOUND_PATH} $INSTALL/usr/share/bootloader
+    find_file_path config/distroconfig.txt $PKG_DIR/files/distroconfig.txt && cp -PRv ${FOUND_PATH} $INSTALL/usr/share/bootloader
+    find_file_path config/config.txt $PKG_DIR/files/config.txt && cp -PRv ${FOUND_PATH} $INSTALL/usr/share/bootloader
 }
