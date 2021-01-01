@@ -22,14 +22,18 @@ case "$LINUX" in
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     ;;
   *)
-    PKG_VERSION="5.10.2"
-    PKG_SHA256="3b84e13abae26af17ebccc4d7212f5843a991127a73a320848d5c6942ef781a2"
+    PKG_VERSION="5.10.4"
+    PKG_SHA256="904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v5.x/$PKG_NAME-$PKG_VERSION.tar.xz"
     PKG_PATCH_DIRS="default"
     ;;
 esac
 
 PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
+
+if [ -n "$($ROOT/$SCRIPTS/uboot_helper $PROJECT $DEVICE $UBOOT_SYSTEM crust_config)" ]; then
+    PKG_PATCH_DIRS="$PKG_PATCH_DIRS crust"
+fi
 
 if [ -n "$KERNEL_TOOLCHAIN" ]; then
   PKG_DEPENDS_HOST="$PKG_DEPENDS_HOST gcc-arm-$KERNEL_TOOLCHAIN:host"
