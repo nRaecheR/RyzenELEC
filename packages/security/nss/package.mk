@@ -3,11 +3,11 @@
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="nss"
-PKG_VERSION="3.47.1"
-PKG_SHA256="07d4276168f59bb3038c7826dabb5fbfbab8336ddf65e4e6e43bce89ada78c64"
+PKG_VERSION="3.60"
+PKG_SHA256="850deb3f4d49703618b64ca5c0ca92d2f195e0e41d7124f7b2149a6ca9eaae1f"
 PKG_LICENSE="Mozilla Public License"
 PKG_SITE="http://ftp.mozilla.org/"
-PKG_URL="http://ftp.mozilla.org/pub/security/nss/releases/NSS_3_47_1_RTM/src/nss-3.47.1-with-nspr-4.23.tar.gz"
+PKG_URL="https://ftp.mozilla.org/pub/security/nss/releases/NSS_${PKG_VERSION/./_}_RTM/src/nss-${PKG_VERSION}-with-nspr-$(get_pkg_version nspr).tar.gz"
 PKG_DEPENDS_HOST="nspr:host zlib:host"
 PKG_DEPENDS_TARGET="toolchain nss:host nspr zlib sqlite"
 PKG_LONGDESC="The Network Security Services (NSS) package is a set of libraries designed to support cross-platform development of security-enabled client and server applications"
@@ -35,7 +35,6 @@ makeinstall_host() {
   cd $PKG_BUILD
   $STRIP dist/Linux*/lib/*.so
   cp -L dist/Linux*/lib/*.so $TOOLCHAIN/lib
-  cp -L dist/Linux*/lib/libcrmf.a $TOOLCHAIN/lib
   mkdir -p $TOOLCHAIN/include/nss
   cp -RL dist/{public,private}/nss/* $TOOLCHAIN/include/nss
   cp -L dist/Linux*/lib/pkgconfig/nss.pc $TOOLCHAIN/lib/pkgconfig
@@ -70,7 +69,6 @@ makeinstall_target() {
   cd $PKG_BUILD
   $STRIP dist/Linux*/lib/*.so
   cp -L dist/Linux*/lib/*.so $SYSROOT_PREFIX/usr/lib
-  cp -L dist/Linux*/lib/libcrmf.a $SYSROOT_PREFIX/usr/lib
   mkdir -p $SYSROOT_PREFIX/usr/include/nss
   cp -RL dist/{public,private}/nss/* $SYSROOT_PREFIX/usr/include/nss
   cp -L dist/Linux*/lib/pkgconfig/nss.pc $SYSROOT_PREFIX/usr/lib/pkgconfig

@@ -16,8 +16,8 @@ PKG_PATCH_DIRS="$LINUX"
 
 case "$LINUX" in
   raspberrypi)
-    PKG_VERSION="967d45b29ca2902f031b867809d72e3b3d623e7a" # 5.10.1
-    PKG_SHA256="5e6fb907f6c66a8a5f6451a6f300e8cc021330a9cf0fac604551c233c8bc93a4"
+    PKG_VERSION="a896a00ebffd0b016627f65ff236b660e66e782b" # 5.10.5
+    PKG_SHA256="654cb832818ec70022c6c4d880a8ca4795603af850f285894899a23f302c4de3"
     PKG_URL="https://github.com/raspberrypi/linux/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     ;;
@@ -31,8 +31,8 @@ esac
 
 PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
 
-if [ -n "$($ROOT/$SCRIPTS/uboot_helper $PROJECT $DEVICE $UBOOT_SYSTEM crust_config)" ]; then
-    PKG_PATCH_DIRS="$PKG_PATCH_DIRS crust"
+if listcontains "${UBOOT_FIRMWARE}" "crust"; then
+  PKG_PATCH_DIRS+=" crust"
 fi
 
 if [ -n "$KERNEL_TOOLCHAIN" ]; then
