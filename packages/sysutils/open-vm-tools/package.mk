@@ -4,8 +4,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="open-vm-tools"
-PKG_VERSION="11.2.0"
-PKG_SHA256="280970a15dd8210b89e68df5fce64fa8bfb3ff7ca3737ce5ebf8634d8c1a2494"
+PKG_VERSION="11.2.5"
+PKG_SHA256="7c31bb8ef70a0e32b81cde6550cae390a53108e4abb28bb539b0ab5b9e4fc188"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/vmware/open-vm-tools"
@@ -26,14 +26,14 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-docs \
                            --without-icu \
                            --without-kernel-modules \
                            --with-udev-rules-dir=/usr/lib/udev/rules.d/ \
-                           --with-sysroot=$SYSROOT_PREFIX"
+                           --with-sysroot=${SYSROOT_PREFIX}"
 
 post_unpack() {
-  mv $PKG_BUILD/$PKG_NAME/* $PKG_BUILD/
+  mv ${PKG_BUILD}/${PKG_NAME}/* ${PKG_BUILD}/
 
-  sed -e 's|.*common-agent/etc/config/Makefile.*||' -i $PKG_BUILD/configure.ac
+  sed -e 's|.*common-agent/etc/config/Makefile.*||' -i ${PKG_BUILD}/configure.ac
 
-  mkdir -p $PKG_BUILD/common-agent/etc/config
+  mkdir -p ${PKG_BUILD}/common-agent/etc/config
 
   # Hack to allow package to be bumped without linking against old libraries
   rm -f ${SYSROOT_PREFIX}/usr/lib/libvmtools*
@@ -44,13 +44,13 @@ pre_configure_target() {
 }
 
 post_makeinstall_target() {
-  rm -rf $INSTALL/sbin
-  rm -rf $INSTALL/usr/share
-  rm -rf $INSTALL/etc/vmware-tools/scripts/vmware/network
+  rm -rf ${INSTALL}/sbin
+  rm -rf ${INSTALL}/usr/share
+  rm -rf ${INSTALL}/etc/vmware-tools/scripts/vmware/network
 
-  chmod -x $INSTALL/usr/lib/udev/rules.d/*.rules
+  chmod -x ${INSTALL}/usr/lib/udev/rules.d/*.rules
 
-  find $INSTALL/etc/vmware-tools/ -type f | xargs sed -i '/.*expr.*/d'
+  find ${INSTALL}/etc/vmware-tools/ -type f | xargs sed -i '/.*expr.*/d'
 }
 
 post_install() {

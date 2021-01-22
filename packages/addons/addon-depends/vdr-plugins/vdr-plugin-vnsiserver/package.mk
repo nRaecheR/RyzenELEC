@@ -3,11 +3,11 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="vdr-plugin-vnsiserver"
-PKG_VERSION="908684b58a3ebd4a447bc4b0a82b0bd8059bf605"
-PKG_SHA256="6c39a2e9854632274cec2b11e4eaaea9edc4095856941672f40d0633ece506df"
+PKG_VERSION="47a90dd9298753083a9a6482bb9990ea9a88aa7a"
+PKG_SHA256="cd8087306dc5d77b150ca9f77bba91460507dc9a2336b9f61ce13aeefecf23e3"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/mdre77/vdr-plugin-vnsiserver"
-PKG_URL="https://github.com/mdre77/vdr-plugin-vnsiserver/archive/$PKG_VERSION.tar.gz"
+PKG_URL="https://github.com/mdre77/vdr-plugin-vnsiserver/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain vdr"
 PKG_NEED_UNPACK="$(get_pkg_directory vdr)"
 PKG_LONGDESC="VDR plugin to handle Kodi clients."
@@ -15,8 +15,8 @@ PKG_TOOLCHAIN="manual"
 
 make_target() {
   VDR_DIR=$(get_build_dir vdr)
-  export PKG_CONFIG_PATH=$VDR_DIR:$PKG_CONFIG_PATH
-  export CPLUS_INCLUDE_PATH=$VDR_DIR/include
+  export PKG_CONFIG_PATH=${VDR_DIR}:${PKG_CONFIG_PATH}
+  export CPLUS_INCLUDE_PATH=${VDR_DIR}/include
 
   make \
     LIBDIR="." \
@@ -26,8 +26,8 @@ make_target() {
 
 post_make_target() {
   VDR_DIR=$(get_build_dir vdr)
-  VDR_APIVERSION=`sed -ne '/define APIVERSION/s/^.*"\(.*\)".*$/\1/p' $VDR_DIR/config.h`
+  VDR_APIVERSION=$(sed -ne '/define APIVERSION/s/^.*"\(.*\)".*$/\1/p' ${VDR_DIR}/config.h)
   LIB_NAME=lib${PKG_NAME/-plugin/}
 
-  cp --remove-destination $PKG_BUILD/${LIB_NAME}.so $PKG_BUILD/${LIB_NAME}.so.${VDR_APIVERSION}
+  cp --remove-destination ${PKG_BUILD}/${LIB_NAME}.so ${PKG_BUILD}/${LIB_NAME}.so.${VDR_APIVERSION}
 }
