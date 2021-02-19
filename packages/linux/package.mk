@@ -22,14 +22,14 @@ case "${LINUX}" in
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     ;;
   raspberrypi)
-    PKG_VERSION="431ac1d21b5e842c5a564bc0bab31d7dc11611f5" # 5.10.13
-    PKG_SHA256="f2b8a1e70f1031bc81d4e120d127d9c63e669033b5ee1589a33efd358e7fe4e3"
+    PKG_VERSION="14e997de54579db1db04d6504be8f700e34461da" # 5.10.16
+    PKG_SHA256="a5cde2becf720ad505bbe361168514fed25f2883a989d62e473adbc23733029b"
     PKG_URL="https://github.com/raspberrypi/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     ;;
   *)
-    PKG_VERSION="5.10.15"
-    PKG_SHA256="d85287bcf1d51c4d0a32380ac0a5b2b487b321058a6923617f1613fbd10e6e01"
+    PKG_VERSION="5.10.17"
+    PKG_SHA256="e84e623ce8bb2446ec026b62eafa3b18480aa6fb6ae9c86cd8f18651324d4814"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v5.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default"
     ;;
@@ -190,7 +190,7 @@ make_target() {
     KERNEL_TARGET="${KERNEL_TARGET/uImage/Image}"
   fi
 
-  kernel_make DTC_FLAGS=-@ ${KERNEL_TARGET} ${KERNEL_MAKE_EXTRACMD} modules
+  DTC_FLAGS=-@ kernel_make ${KERNEL_TARGET} ${KERNEL_MAKE_EXTRACMD} modules
 
   if [ "${PKG_BUILD_PERF}" = "yes" ]; then
     ( cd tools/perf
