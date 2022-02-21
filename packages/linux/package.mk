@@ -28,8 +28,8 @@ case "${LINUX}" in
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     ;;
   *)
-    PKG_VERSION="5.16.5"
-    PKG_SHA256="ecaeedd9d289934f97c572aa965b6959d4d47f9789220e4fc3fbb525d8f1c7ab"
+    PKG_VERSION="5.16.10"
+    PKG_SHA256="0c4d6f0081800593852eb155b01e09b78b5bc69d7a553fc58f5ad2070f90239e"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v5.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default"
     ;;
@@ -50,7 +50,7 @@ fi
 
 if [ "${TARGET_ARCH}" = "x86_64" ]; then
   PKG_DEPENDS_TARGET+=" elfutils:host pciutils"
-  PKG_DEPENDS_UNPACK+=" intel-ucode kernel-firmware"
+  PKG_DEPENDS_UNPACK+=" kernel-firmware"
 elif [ "${TARGET_ARCH}" = "arm" -a "${DEVICE}" = "iMX6" ]; then
   PKG_DEPENDS_UNPACK+=" firmware-imx"
 fi
@@ -150,8 +150,6 @@ pre_make_target() {
     # copy some extra firmware to linux tree
     mkdir -p ${PKG_BUILD}/external-firmware
       cp -a $(get_build_dir kernel-firmware)/.copied-firmware/{amdgpu,amd-ucode,i915,radeon,e100,rtl_nic} ${PKG_BUILD}/external-firmware
-
-    cp -a $(get_build_dir intel-ucode)/intel-ucode ${PKG_BUILD}/external-firmware
 
     FW_LIST="$(find ${PKG_BUILD}/external-firmware \( -type f -o -type l \) \( -iname '*.bin' -o -iname '*.fw' -o -path '*/intel-ucode/*' \) | sed 's|.*external-firmware/||' | sort | xargs)"
 
